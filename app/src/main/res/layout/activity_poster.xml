@@ -31,9 +31,6 @@
                 android:id="@+id/original_title_tv"
                 android:layout_width="0dp"
                 android:layout_height="0dp" />
-            <!--android:text="@string/original_title"-->
-            <!--android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />-->
-
 
         </LinearLayout>
 

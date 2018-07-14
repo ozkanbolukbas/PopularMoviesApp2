@@ -57,6 +57,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
         Picasso.get()
                 .load(poster)
                 .placeholder(R.drawable.popcorn)
+                .error(R.drawable.error_placeholder)
                 .into(holder.imageViewMovieListItem);
     }
 
