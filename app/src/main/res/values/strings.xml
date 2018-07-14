@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Popular Movies App Stage 2</string>
-    <string name="original_title" translatable="false">Original Title</string>
-    <string name="detail_release_date" translatable="false">Release Date</string>
-    <string name="vote_average" translatable="false">Viewer Rating</string>
+    <string name="original_title" >Original Title</string>
+    <string name="detail_release_date" >Release Date</string>
+    <string name="vote_average" >Viewer Rating</string>
     <string name="plot_synopsis">Plot</string>
 
     <string name="movie_poster_image">Movie Poster Image</string>
     <string name="movie_thumb_image">Movie Thumb Image</string>
 
-    <string name="pref_sort_popular" translatable="false">Most Popular</string>
-    <string name="pref_sort_rating" translatable="false">Highest Rating</string>
-    <string name="pref_sort_key" translatable="false">Sort Key</string>
+    <string name="pref_sort_popular">Most Popular</string>
+    <string name="pref_sort_rating" >Highest Rating</string>
+    <string name="pref_sort_key" >Sort Key</string>
 
 </resources>
