@@ -129,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/reviews_tv"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:layout_below="@+id/view2"
                 android:text="@string/movie_review"/>
 

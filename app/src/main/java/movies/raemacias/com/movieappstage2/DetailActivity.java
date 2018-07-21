@@ -53,20 +53,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private TrailerAdapter adapter;
-    private List<TrailerResult> trailerResult;
 
-    private List<ReviewResult> mResults;
-    private ReviewAdapter mReviewAdapter;
-
-    private TextView textViewOriginalTitle;
-    private TextView textViewVoteAverage;
-    private TextView textViewPlotSynopsis;
-    private TextView textViewReleaseDate;
-    private ImageView imageViewMovieListItem;
-    private ImageView imageViewMovieThumb;
+    List<ReviewResult> mResults;
+    ReviewAdapter mReviewAdapter;
 
     int movie_id;
-    String review;
+    String reviews;
     String author;
 
     private final AppCompatActivity activity = DetailActivity.this;
@@ -83,12 +75,12 @@ public class DetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        textViewOriginalTitle = findViewById(R.id.original_title_tv);
-        imageViewMovieListItem = findViewById(R.id.movie_poster_iv);
-        imageViewMovieThumb = findViewById(R.id.movie_thumb_iv);
-        textViewVoteAverage = findViewById(R.id.vote_average_tv);
-        textViewPlotSynopsis = findViewById(R.id.plot_synopsis_tv);
-        textViewReleaseDate = findViewById(R.id.release_tv);
+        TextView textViewOriginalTitle = findViewById(R.id.original_title_tv);
+        ImageView imageViewMovieListItem = findViewById(R.id.movie_poster_iv);
+        ImageView imageViewMovieThumb = findViewById(R.id.movie_thumb_iv);
+        TextView textViewVoteAverage = findViewById(R.id.vote_average_tv);
+        TextView textViewPlotSynopsis = findViewById(R.id.plot_synopsis_tv);
+        TextView textViewReleaseDate = findViewById(R.id.release_tv);
 
         Intent intent = getIntent();
         if (intent.hasExtra("original_title")) {
@@ -99,10 +91,8 @@ public class DetailActivity extends AppCompatActivity {
             String rating = getIntent().getExtras().getString("vote_average");
             String release = getIntent().getExtras().getString("release_date");
             movie_id = getIntent().getExtras().getInt("movie_id");
-            review = getIntent().getExtras().getString("review");
+            reviews = getIntent().getExtras().getString("reviews");
             author = getIntent().getExtras().getString("author");
-
-
 
             Picasso.get()
                     .load("http://image.tmdb.org/t/p/w342" + poster)
@@ -128,7 +118,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private void loadJSON() {
 
-        trailerResult = new ArrayList<>();
+        List<TrailerResult> trailerResult = new ArrayList<>();
         adapter = new TrailerAdapter(this, trailerResult);
 
         recyclerView = findViewById(R.id.recyclerview_trailer);
@@ -182,7 +172,9 @@ public class DetailActivity extends AppCompatActivity {
 
             Client Client = new Client();
             MovieInterface movieInterface = Client.getClient().create(MovieInterface.class);
-            Call<ReviewModel> call = movieInterface.getContent(movie_id, BuildConfig.API_KEY);
+            //when calling movie_id only it overrides the trailer space on app
+            //when only calling reviews, nothing shows up on app
+            Call<ReviewModel> call = movieInterface.getContent(reviews, BuildConfig.API_KEY);
             call.enqueue(new Callback<ReviewModel>() {
 
                 @Override
@@ -198,7 +190,7 @@ public class DetailActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<ReviewModel> call, Throwable t) {
                     Log.d("Error", t.getMessage());
-                    Toast.makeText(DetailActivity.this, "Error fetching trailer data", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DetailActivity.this, "Error fetching review data", Toast.LENGTH_SHORT).show();
 
                 }
             });
