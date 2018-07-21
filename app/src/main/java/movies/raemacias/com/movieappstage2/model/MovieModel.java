@@ -24,9 +24,6 @@ public class MovieModel {
     @SerializedName("total_pages")
     @Expose
     private int totalPages;
-//    @SerializedName("results")
-//    @Expose
-//    private List<Result> results = new ArrayList<Result>();
 
     public int getPage() {
         return page;
@@ -51,14 +48,5 @@ public class MovieModel {
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
     }
-
-//    public List<Result> getResults() {
-//        return results;
-//    }
-//
-//    public void setResults(List<Result> results) {
-//        this.results = results;
-//    }
-
 
 }

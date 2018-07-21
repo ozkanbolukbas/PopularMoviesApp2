@@ -3,8 +3,12 @@ package movies.raemacias.com.movieappstage2.api;
 import movies.raemacias.com.movieappstage1.BuildConfig;
 import movies.raemacias.com.movieappstage2.model.MovieModel;
 //import movies.raemacias.com.movieappstage1.model.MovieResponse;
+import movies.raemacias.com.movieappstage2.model.ReviewResult;
+import movies.raemacias.com.movieappstage2.model.TrailerModel;
+import movies.raemacias.com.movieappstage2.model.TrailerResult;
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface MovieInterface {
@@ -34,5 +38,12 @@ public interface MovieInterface {
     @GET("top_rated")
     Call<MovieModel> getVoteAverage(
             @Query("api_key") String api_key);
+
+    @GET("{movie_id}/content")
+    Call<ReviewResult> getContent(@Path("movie_id") int id, @Query("api_key") String api_key);
+
+    @GET("{movie_id}/videos")
+    Call<TrailerModel> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String api_key);
+
 
 }

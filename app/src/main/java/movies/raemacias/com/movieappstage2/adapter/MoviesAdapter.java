@@ -103,6 +103,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
                         intent.putExtra("overview", results.get(pos).getOverview());
                         intent.putExtra("vote_average", Double.toString(results.get(pos).getVoteAverage()));
                         intent.putExtra("release_date", results.get(pos).getReleaseDate());
+                        intent.putExtra("movie_id", results.get(pos).getId());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         context.startActivity(intent);
                         Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getOriginalTitle(), Toast.LENGTH_LONG).show();
