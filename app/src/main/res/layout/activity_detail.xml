@@ -90,10 +90,13 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
                 android:textSize="16sp" />
 
+
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="?android:attr/listDivider"
+                android:layout_below="@id/plot_synopsis_tv"
+                android:background="@color/colorGrey"
                 android:visibility="visible" />
 
             <TextView
@@ -103,6 +106,7 @@
                 android:layout_below="@id/plot_synopsis_tv"
                 android:text="@string/movie_trailers"
                 android:textSize="16sp"
+                android:paddingTop="8dp"
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintTop_creator="1" />
 
@@ -110,6 +114,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerview_trailer"
+                android:layout_below="@id/movie_trailers"
+                android:scrollbars="vertical" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:id="@+id/view2"
+                android:layout_below="@id/recyclerview_trailer"
+                android:background="@color/colorGrey"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/reviews_tv"
+                android:textSize="16sp"
+                android:layout_below="@+id/view2"
+                android:text="@string/movie_review"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/recyclerview_reviews"
                 android:layout_below="@id/movie_trailers"
                 android:scrollbars="vertical" />
 

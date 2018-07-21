@@ -17,5 +17,6 @@
     <string name="movie_trailers">Trailers</string>
     <string name="movie_trailer">Trailer</string>
     <string name="favorite_heart">String Heart</string>
+    <string name="youtube_logo">YouTube Logo</string>
 
 </resources>
