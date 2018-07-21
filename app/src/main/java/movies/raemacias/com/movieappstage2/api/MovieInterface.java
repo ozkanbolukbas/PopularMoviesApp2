@@ -38,8 +38,8 @@ public interface MovieInterface {
     Call<MovieModel> getVoteAverage(
             @Query("api_key") String api_key);
 
-    @GET("{movie_id}/content")
-    Call<ReviewModel> getContent(@Path("movie_id") int id, @Query("api_key") String api_key);
+    @GET("{movie_id}/reviews")
+    Call<ReviewModel> getContent(@Path("movie_id") String id, @Query("api_key") String api_key);
 
     @GET("{movie_id}/videos")
     Call<TrailerModel> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String api_key);
