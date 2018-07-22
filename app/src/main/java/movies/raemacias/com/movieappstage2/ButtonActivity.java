@@ -1,0 +1,89 @@
+package movies.raemacias.com.movieappstage2;
+
+import android.app.ListActivity;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.like.LikeButton;
+import com.like.OnAnimationEndListener;
+import com.like.OnLikeListener;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import movies.raemacias.com.movieappstage1.R;
+
+//This Button code was derived from the android-arsenal:
+//https://android-arsenal.com/details/1/3038#!description
+
+public class ButtonActivity extends DetailActivity implements OnLikeListener,
+        OnAnimationEndListener {
+
+        public static final String TAG = "MainActivity";
+
+        @BindView(R.id.heart_button)
+        LikeButton likeButton;
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_detail);
+            ButterKnife.bind(this);
+            Toolbar toolbar = findViewById(R.id.my_toolbar);
+            setSupportActionBar(toolbar);
+
+            likeButton.setOnAnimationEndListener(this);
+            likeButton.setOnLikeListener(this);
+
+            likeButton.setOnLikeListener(this);
+            likeButton.setOnAnimationEndListener(this);
+
+        }
+
+        @Override
+        public boolean onCreateOptionsMenu(Menu menu) {
+            // Inflate the menu; this adds items to the action bar if it is present.
+            getMenuInflater().inflate(R.menu.menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Handle action bar item clicks here. The action bar will
+            // automatically handle clicks on the Home/Up button, so long
+            // as you specify a parent activity in AndroidManifest.xml.
+            int id = item.getItemId();
+
+            return super.onOptionsItemSelected(item);
+        }
+
+        @Override
+        public void liked(LikeButton likeButton) {
+            Toast.makeText(this, "Liked!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void unLiked(LikeButton likeButton) {
+            Toast.makeText(this, "Disliked!", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override public void onAnimationEnd(LikeButton likeButton) {
+            Log.d(TAG, "Animation End for %s" + likeButton);
+        }
+
+        @OnClick(R.id.heart_button)
+        public void navigateToList()
+        {
+            Intent intent = new Intent(this,ListActivity.class);
+            startActivity(intent);
+        }
+    }
+
