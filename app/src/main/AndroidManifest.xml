@@ -26,7 +26,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="movies.raemacias.com.movieappstage2.MainActivity"/>
         </activity>
-        <activity android:name="movies.raemacias.com.movieappstage2.ButtonActivity" />
+        <activity android:name="movies.raemacias.com.movieappstage2.ButtonActivity"
+            android:label="Like"
+            android:parentActivityName="movies.raemacias.com.movieappstage2.MainActivity"/>
 
     </application>
 
