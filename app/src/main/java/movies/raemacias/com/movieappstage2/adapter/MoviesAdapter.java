@@ -13,6 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -22,7 +24,7 @@ import movies.raemacias.com.movieappstage1.R;
 import movies.raemacias.com.movieappstage2.model.Result;
 
 
-public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListViewHolder> {
+public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListViewHolder> implements OnLikeListener{
 
     // This code has been adapted from www.learn2crack.com
     // and Simplified Coding
@@ -65,6 +67,16 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     public int getItemCount() {
         //We need the object model to be passed to this layer.
         return results.size();
+    }
+
+    @Override
+    public void liked(LikeButton likeButton) {
+
+    }
+
+    @Override
+    public void unLiked(LikeButton likeButton) {
+
     }
 
     class MovieListViewHolder extends RecyclerView.ViewHolder {
@@ -112,6 +124,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
                 }
 
             });
+
         }
     }
 }
