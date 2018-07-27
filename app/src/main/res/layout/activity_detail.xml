@@ -137,7 +137,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:id="@+id/recyclerview_reviews"
-                android:layout_below="@id/movie_trailers"
+                android:layout_below="@id/reviews_tv"
                 android:scrollbars="vertical"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 

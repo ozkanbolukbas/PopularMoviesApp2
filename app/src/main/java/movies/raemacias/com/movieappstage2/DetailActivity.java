@@ -109,15 +109,9 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Information not available.", Toast.LENGTH_SHORT).show();
         }
-//        initViews();
         loadJSON();
-//        initViews1();
         loadJSON1();
     }
-
-//    private void initViews() {
-//
-//    }
 
     private void loadJSON() {
 
@@ -158,13 +152,10 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-//    private void initViews1() {
-//
-//    }
-
     private void loadJSON1() {
 
-        mResults = new ArrayList<>();
+
+        List<ReviewResult> mResults = new ArrayList<>();
         mReviewAdapter = new ReviewAdapter(this, mResults);
 
         mRecyclerView = findViewById(R.id.recyclerview_reviews);
@@ -177,7 +168,7 @@ public class DetailActivity extends AppCompatActivity {
             MovieInterface movieInterface = Client.getClient().create(MovieInterface.class);
             //when calling movie_id only it overrides the trailer space on app
             //when only calling reviews, nothing shows up on app
-            Call<ReviewModel> call = movieInterface.getReviewList(movie_id, reviews, BuildConfig.API_KEY);
+            Call<ReviewModel> call = movieInterface.getReviewList(movie_id, BuildConfig.API_KEY);
             call.enqueue(new Callback<ReviewModel>() {
 
                 @Override
