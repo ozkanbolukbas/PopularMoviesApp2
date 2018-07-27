@@ -39,7 +39,7 @@ public interface MovieInterface {
             @Query("api_key") String api_key);
 
     @GET("{movie_id}/reviews")
-    Call<ReviewModel> getContent(@Path("movie_id") String id, @Query("api_key") String api_key);
+    Call<ReviewModel> getReviewList(@Path("movie_id") int id, String reviews, @Query("api_key") String api_key);
 
     @GET("{movie_id}/videos")
     Call<TrailerModel> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String api_key);

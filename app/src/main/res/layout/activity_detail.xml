@@ -112,7 +112,7 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/recyclerview_trailer"
                 android:layout_below="@id/movie_trailers"
                 android:scrollbars="vertical" />
@@ -135,10 +135,11 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:id="@+id/recyclerview_reviews"
                 android:layout_below="@id/movie_trailers"
-                android:scrollbars="vertical" />
+                android:scrollbars="vertical"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
 
         </RelativeLayout>
 
