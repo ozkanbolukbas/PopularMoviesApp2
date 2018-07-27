@@ -54,12 +54,14 @@ public class DetailActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TrailerAdapter adapter;
 
+    RecyclerView mRecyclerView;
     List<ReviewResult> mResults;
     ReviewAdapter mReviewAdapter;
 
     int movie_id;
     String reviews;
     String author;
+    String content;
 
     private final AppCompatActivity activity = DetailActivity.this;
 
@@ -92,6 +94,7 @@ public class DetailActivity extends AppCompatActivity {
             String release = getIntent().getExtras().getString("release_date");
             movie_id = getIntent().getExtras().getInt("movie_id");
             reviews = getIntent().getExtras().getString("reviews");
+            content = getIntent().getExtras().getString("content");
             author = getIntent().getExtras().getString("author");
 
             Picasso.get()
@@ -106,15 +109,15 @@ public class DetailActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Information not available.", Toast.LENGTH_SHORT).show();
         }
-        initViews();
+//        initViews();
         loadJSON();
-        initViews1();
+//        initViews1();
         loadJSON1();
     }
 
-    private void initViews() {
-
-    }
+//    private void initViews() {
+//
+//    }
 
     private void loadJSON() {
 
@@ -155,18 +158,18 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    private void initViews1() {
-
-    }
+//    private void initViews1() {
+//
+//    }
 
     private void loadJSON1() {
 
         mResults = new ArrayList<>();
         mReviewAdapter = new ReviewAdapter(this, mResults);
 
-        recyclerView = findViewById(R.id.recyclerview_reviews);
+        mRecyclerView = findViewById(R.id.recyclerview_reviews);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
         try {
 
@@ -174,7 +177,7 @@ public class DetailActivity extends AppCompatActivity {
             MovieInterface movieInterface = Client.getClient().create(MovieInterface.class);
             //when calling movie_id only it overrides the trailer space on app
             //when only calling reviews, nothing shows up on app
-            Call<ReviewModel> call = movieInterface.getContent(reviews, BuildConfig.API_KEY);
+            Call<ReviewModel> call = movieInterface.getReviewList(movie_id, reviews, BuildConfig.API_KEY);
             call.enqueue(new Callback<ReviewModel>() {
 
                 @Override
@@ -182,8 +185,8 @@ public class DetailActivity extends AppCompatActivity {
                     if (response.message().contentEquals("OK")) {
 
                         List<ReviewResult> mResults = response.body().getReviewList();
-                        recyclerView.setAdapter(new ReviewAdapter(getApplicationContext(), mResults));
-                        recyclerView.smoothScrollToPosition(0);
+                        mRecyclerView.setAdapter(new ReviewAdapter(getApplicationContext(), mResults));
+                        mRecyclerView.smoothScrollToPosition(0);
                     }
                 }
 
