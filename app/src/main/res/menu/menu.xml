@@ -14,4 +14,10 @@
         android:orderInCategory="200"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/menu_favorite"
+        android:title="@string/pref_sort_favorite"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
+
 </menu>
