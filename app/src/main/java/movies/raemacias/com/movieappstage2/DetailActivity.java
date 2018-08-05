@@ -1,38 +1,36 @@
 package movies.raemacias.com.movieappstage2;
 
 import android.annotation.TargetApi;
-import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
+
+import com.like.LikeButton;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage1.BuildConfig;
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.adapter.MoviesAdapter;
+import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
 import movies.raemacias.com.movieappstage2.adapter.ReviewAdapter;
 import movies.raemacias.com.movieappstage2.adapter.TrailerAdapter;
 import movies.raemacias.com.movieappstage2.api.Client;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
-import movies.raemacias.com.movieappstage2.model.MovieModel;
+import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
 import movies.raemacias.com.movieappstage2.model.Result;
 import movies.raemacias.com.movieappstage2.model.ReviewModel;
 import movies.raemacias.com.movieappstage2.model.ReviewResult;
@@ -41,11 +39,6 @@ import movies.raemacias.com.movieappstage2.model.TrailerResult;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Path;
-
-import static movies.raemacias.com.movieappstage2.api.MovieInterface.API_KEY;
 
 public class DetailActivity extends AppCompatActivity {
 
@@ -62,6 +55,9 @@ public class DetailActivity extends AppCompatActivity {
     String reviews;
     String author;
     String content;
+    Button heartButton;
+
+    private FavoriteDatabase db;
 
     private final AppCompatActivity activity = DetailActivity.this;
 
@@ -70,6 +66,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
@@ -193,8 +190,25 @@ public class DetailActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
+
+
+
+        LikeButton heartButton = findViewById(R.id.heart_button);
+        heartButton.setOnClickListener(new View.OnClickListener()
+
+    {
+        @Override
+        public void onClick (View view){
+        Intent intent = new Intent(DetailActivity.this, FavoriteActivity.class);
+        startActivity(intent);
+
     }
+
+    });
 }
+}
+
+
 
 //    @Override
 //    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -203,5 +217,3 @@ public class DetailActivity extends AppCompatActivity {
 
 
 //    }
-
-

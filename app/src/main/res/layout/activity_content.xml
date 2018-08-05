@@ -13,7 +13,7 @@
         android:paddingEnd="4dp" />
 
     <TextView
-        android:id="@+id/itemAuthor"
+        android:id="@+id/itemContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
@@ -21,7 +21,7 @@
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/itemContent"
+        android:id="@+id/itemAuthor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"

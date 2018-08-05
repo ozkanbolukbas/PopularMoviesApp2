@@ -31,6 +31,7 @@
             android:name="movies.raemacias.com.movieappstage2.ButtonActivity"
             android:label="Like"
             android:parentActivityName="movies.raemacias.com.movieappstage2.MainActivity" />
+        <activity android:name="movies.raemacias.com.movieappstage2.FavoriteActivity" />
     </application>
 
 </manifest>

@@ -27,8 +27,10 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
         OnAnimationEndListener {
 
         public static final String TAG = "MainActivity";
+    public static final String FAVORITE_ID = "favorite";
 
-        @BindView(R.id.heart_button)
+
+    @BindView(R.id.heart_button)
         LikeButton likeButton;
 
         @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -39,6 +41,8 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
             ButterKnife.bind(this);
             Toolbar toolbar = findViewById(R.id.my_toolbar);
             setSupportActionBar(toolbar);
+
+
 
             likeButton.setOnAnimationEndListener(this);
             likeButton.setOnLikeListener(this);
