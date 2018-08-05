@@ -3,7 +3,9 @@ package movies.raemacias.com.movieappstage2;
 //this code was input and interpreted by watching tutorials
 //from Delaroy Studios on YouTube. Also input from Android Basics
 //Networking course and other student advice and input
+//stage 2 help came from Lynda.com, David Gassner tutorials
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String TAG = "MainActivity";
     private String LOG_TAG;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +59,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         initViews();
         initViews1();
@@ -102,7 +109,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
             case R.id.menu_rating:
                 loadJSON1();
+                break;
+
+//                when ready to implement - add favorites to onOptions here
+            case R.id.menu_favorite:
+                startActivity(new Intent(this, FavoriteActivity.class));
                 return true;
+
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -239,6 +252,14 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
     }
+
+    private void initViews2() {
+        checkSortOrder();
+    }
+
+//    //for loading favorites from DB
+//    private void loadFavoriteItem() {
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(LOG_TAG, "Preferences updated.");
@@ -249,7 +270,13 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String sortOrder = preferences.getString(
                 this.getString(R.string.pref_sort_key),
-                this.getString(R.string.pref_sort_popular));
+                this.getString(R.string.pref_sort_popular)
+//                ,
+//                this.getString(R.string.pref_sort_favorite)
+        );
+//                ),
+//                this.getString(R.string.pref_sort_favorite))
+//                ;
 
         if (sortOrder.equals(this.getString(R.string.pref_sort_popular))) {
             Log.d(LOG_TAG, "Sort by most popular.");
@@ -257,6 +284,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         } else if (sortOrder.equals(this.getString(R.string.pref_sort_rating))) {
             Log.d(LOG_TAG, "Sort by highest rating.");
             loadJSON1();
+//        } else if (sortOrder.equals(this.getString(R.string.pref_sort_favorite))) {
+////
+////            Log.d(LOG_TAG, "Sort by favorites.");
+////            loadFavoriteItem();
         }
     }
     @Override
