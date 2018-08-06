@@ -191,29 +191,5 @@ public class DetailActivity extends AppCompatActivity {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
-
-
-        LikeButton heartButton = findViewById(R.id.heart_button);
-        heartButton.setOnClickListener(new View.OnClickListener()
-
-    {
-        @Override
-        public void onClick (View view){
-        Intent intent = new Intent(DetailActivity.this, FavoriteActivity.class);
-        startActivity(intent);
-
     }
-
-    });
 }
-}
-
-
-
-//    @Override
-//    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-//        Log.d(LOG_TAG, "Preferences updated.");
-//        checkSortOrder();
-
-
-//    }
