@@ -19,7 +19,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
+
+import com.like.LikeButton;
 
 import java.io.IOException;
 import java.io.InputStream;

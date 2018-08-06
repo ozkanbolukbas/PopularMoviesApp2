@@ -7,6 +7,22 @@ import java.util.List;
 
 public class Result {
 
+    @SerializedName("original_title")
+    @Expose
+    private String originalTitle;
+
+    @SerializedName("overview")
+    @Expose
+    private String overview;
+
+    @SerializedName("release_date")
+    @Expose
+    private String releaseDate;
+
+    @SerializedName("poster_path")
+    @Expose
+    private String posterPath;
+
     @SerializedName("vote_count")
     @Expose
     private int voteCount;
@@ -31,17 +47,9 @@ public class Result {
     @Expose
     private double popularity;
 
-    @SerializedName("poster_path")
-    @Expose
-    private String posterPath;
-
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
-
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
 
     @SerializedName("genre_ids")
     @Expose
@@ -54,14 +62,6 @@ public class Result {
     @SerializedName("adult")
     @Expose
     private boolean adult;
-
-    @SerializedName("overview")
-    @Expose
-    private String overview;
-
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
 
     public int getVoteCount() {
         return voteCount;
@@ -174,4 +174,6 @@ public class Result {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+
 }
