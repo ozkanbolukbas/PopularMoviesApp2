@@ -13,20 +13,25 @@ import java.util.List;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.Result;
 
+//This code was generate by watching the tutorial from wiseAss on YouTube.
+//https://www.youtube.com/watch?v=LCOKWgHdBvE&t=170s
 @Dao
 public interface FavoriteItemDao {
 
-    @Query("SELECT * FROM favorite ORDER BY id")
-    LiveData<List<FavoriteEntry>> getAllFavorites();
+    @Query("SELECT * FROM FavoriteEntry")
+    LiveData<List<FavoriteEntry>> getFavoriteItems();
 
-    @Insert
-    void insertTask(FavoriteEntry favoriteEntry);
+    @Query("SELECT * FROM FavoriteEntry WHERE id = :id")
+    LiveData<FavoriteEntry> getFavoriteItemById(int id);
 
-
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateTask(FavoriteEntry favoriteEntry);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Long insertFavoriteItem(FavoriteEntry favoriteEntry);
 
     @Delete
-    void deleteTask(FavoriteEntry favoriteEntry);
+    void deleteFavoriteItem(FavoriteEntry favoriteEntry);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void updateFavoriteItem(FavoriteEntry favoriteEntry);
+
 
 }

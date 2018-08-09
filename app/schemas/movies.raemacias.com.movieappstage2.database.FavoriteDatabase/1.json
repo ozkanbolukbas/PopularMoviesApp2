@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e22358e053b4e773c1d529f0688b70de",
+    "identityHash": "c9d562e03021c839cc8b21a573c51f3d",
     "entities": [
       {
-        "tableName": "favorite",
+        "tableName": "FavoriteEntry",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `original_title` TEXT, `poster_path` TEXT, `release_date` TEXT, `rating` TEXT, `overview` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -57,7 +57,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"e22358e053b4e773c1d529f0688b70de\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c9d562e03021c839cc8b21a573c51f3d\")"
     ]
   }
 }

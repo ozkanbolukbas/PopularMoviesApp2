@@ -52,16 +52,16 @@
                 android:text="@string/vote_average"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Small" />
 
-            <com.like.LikeButton
-                app:icon_type="heart"
-                app:icon_size="25dp"
-                app:liked="false"
-                android:layout_marginStart="-20dp"
-                android:id="@+id/heart_button"
-                android:layout_below="@id/vote_average_tv"
-                android:layout_toEndOf="@id/movie_thumb_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <!--<com.like.LikeButton-->
+                <!--app:icon_type="heart"-->
+                <!--app:icon_size="25dp"-->
+                <!--app:liked="false"-->
+                <!--android:layout_marginStart="-20dp"-->
+                <!--android:id="@+id/heart_button"-->
+                <!--android:layout_below="@id/vote_average_tv"-->
+                <!--android:layout_toEndOf="@id/movie_thumb_iv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
 
             <TextView
                 android:id="@+id/plot_synopsis_tv"
