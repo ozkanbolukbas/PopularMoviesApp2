@@ -36,6 +36,7 @@ public class FavoriteActivity extends AppCompatActivity {
     public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
 
     private FavoriteViewModel mViewModel;
+    FavoriteAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,14 @@ public class FavoriteActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        RecyclerView recyclerView = findViewById(R.id.rv_favorites);
         final FavoriteAdapter adapter = new FavoriteAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+//        final LinearLayoutManager layoutManager = new LinearLayoutManager(context);
+//        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//        recyclerView.setLayoutManager(layoutManager);
 
         // Get a new or existing ViewModel from the ViewModelProvider.
         mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
