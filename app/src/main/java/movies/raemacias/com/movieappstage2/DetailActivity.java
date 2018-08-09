@@ -18,6 +18,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import com.like.LikeButton;
+import com.like.OnLikeListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import movies.raemacias.com.movieappstage2.adapter.TrailerAdapter;
 import movies.raemacias.com.movieappstage2.api.Client;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
 import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
+import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
+import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.Result;
 import movies.raemacias.com.movieappstage2.model.ReviewModel;
 import movies.raemacias.com.movieappstage2.model.ReviewResult;
@@ -55,17 +58,20 @@ public class DetailActivity extends AppCompatActivity {
     String reviews;
     String author;
     String content;
-    Button heartButton;
+    LikeButton heartButton;
 
     private FavoriteDatabase db;
 
     private final AppCompatActivity activity = DetailActivity.this;
+    private FavoriteEntry favoriteEntry;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -93,6 +99,8 @@ public class DetailActivity extends AppCompatActivity {
             reviews = getIntent().getExtras().getString("reviews");
             content = getIntent().getExtras().getString("content");
             author = getIntent().getExtras().getString("author");
+            favoriteEntry = new FavoriteEntry(movieTitle);
+
 
             Picasso.get()
                     .load("http://image.tmdb.org/t/p/w342" + poster)
@@ -108,6 +116,20 @@ public class DetailActivity extends AppCompatActivity {
         }
         loadJSON();
         loadJSON1();
+
+        heartButton = (LikeButton)findViewById(R.id.heart_button);
+        heartButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+                FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
+                favoriteItemRepository.insert(favoriteEntry);
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+        });
     }
 
     private void loadJSON() {

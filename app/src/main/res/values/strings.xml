@@ -20,4 +20,8 @@
     <string name="favorite_heart">String Heart</string>
     <string name="youtube_logo">YouTube Logo</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="empty_not_saved">No favorite saved.</string>
+
 </resources>

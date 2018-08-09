@@ -1,9 +1,12 @@
 package movies.raemacias.com.movieappstage2.database;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
@@ -11,29 +14,35 @@ import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 
 //This code for Room was implemented based on tutorials from David Gassner on Lynda.com
 //and from the Udacity Architecture Components lessons.
+//Also used wiseAss from YouTube.
+//REVISED - code implemented from CodeLabs, Room with a View
+
+
+//It is important that this class is abstract
+//Can also use export schema. Need to update versions as table needs updating, otherwise
+//users can lose all their data. NOT good!
 
 @Database(entities = {FavoriteEntry.class}, version = 1)
 public abstract class FavoriteDatabase extends RoomDatabase {
 
-    private static final String LOG_TAG = FavoriteDatabase.class.getSimpleName();
-    private static final Object LOCK = new Object();
-    private static final String DATABASE_NAME = "favorite";
-    private static FavoriteDatabase sInstance;
+    public abstract FavoriteItemDao mFavoriteItemDao();
 
-    public static FavoriteDatabase getFavoriteDatabase (Context context) {
-        if (sInstance == null) {
-            synchronized (LOCK) {
-                Log.d(LOG_TAG, "Creating new database instance");
-                sInstance = Room.databaseBuilder(context.getApplicationContext(),
-                        FavoriteDatabase.class, FavoriteDatabase.DATABASE_NAME)
-                        .build();
+    private static FavoriteDatabase INSTANCE;
+
+    public static FavoriteDatabase getFavoriteDatabase(final Context context) {
+        if (INSTANCE == null) {
+            synchronized (FavoriteDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            FavoriteDatabase.class, "word_database")
+                            // Wipes and rebuilds instead of migrating if no Migration object.
+                            .fallbackToDestructiveMigration()
+//                            .addCallback(sRoomDatabaseCallback)
+                            .build();
+                }
             }
         }
-        Log.d(LOG_TAG, "Getting the database instance");
-        return sInstance;
+        return INSTANCE;
     }
 
-    public abstract FavoriteItemDao getFavoriteItemDao();
-    }
-
-
+}

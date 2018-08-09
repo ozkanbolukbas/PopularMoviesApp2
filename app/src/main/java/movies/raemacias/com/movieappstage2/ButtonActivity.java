@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import movies.raemacias.com.movieappstage1.R;
+import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 
 //This Button code was derived from the android-arsenal:
 //https://android-arsenal.com/details/1/3038#!description
