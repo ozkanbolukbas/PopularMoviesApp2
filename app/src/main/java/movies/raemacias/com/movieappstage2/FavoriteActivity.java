@@ -22,8 +22,6 @@ import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
 import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
-import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
-import movies.raemacias.com.movieappstage2.database.FavoriteItemDao;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 
@@ -69,14 +67,14 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         });
 
-        LikeButton heartButton = findViewById(R.id.heart_button);
-        heartButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(FavoriteActivity.this, NewFavoriteActivity.class);
-                startActivityForResult(intent, NEW_FAVORITE_ACTIVITY_REQUEST_CODE);
-            }
-        });
+//        LikeButton heartButton = findViewById(R.id.heart_button);
+//        heartButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(FavoriteActivity.this, NewFavoriteActivity.class);
+//                startActivityForResult(intent, NEW_FAVORITE_ACTIVITY_REQUEST_CODE);
+//            }
+//        });
     }
 
     @Override
