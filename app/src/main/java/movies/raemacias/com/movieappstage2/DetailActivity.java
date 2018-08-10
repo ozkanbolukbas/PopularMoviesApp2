@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +24,6 @@ import java.util.List;
 
 import movies.raemacias.com.movieappstage1.BuildConfig;
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
 import movies.raemacias.com.movieappstage2.adapter.ReviewAdapter;
 import movies.raemacias.com.movieappstage2.adapter.TrailerAdapter;
 import movies.raemacias.com.movieappstage2.api.Client;
@@ -117,16 +114,16 @@ public class DetailActivity extends AppCompatActivity {
         loadJSON();
         loadJSON1();
 
-        heartButton = (LikeButton)findViewById(R.id.heart_button);
+        heartButton = findViewById(R.id.heart_button);
         heartButton.setOnLikeListener(new OnLikeListener() {
             @Override
-            public void liked(LikeButton likeButton) {
+            public void liked(LikeButton heartButton) {
                 FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
                 favoriteItemRepository.insert(favoriteEntry);
             }
 
             @Override
-            public void unLiked(LikeButton likeButton) {
+            public void unLiked(LikeButton heartButton) {
 
             }
         });

@@ -1,5 +1,6 @@
 package movies.raemacias.com.movieappstage2.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +15,22 @@ import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
+    private Context context;
+    private List<FavoriteEntry> favoriteEntry;
+
     class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView favoriteItemView;
 
         private ViewHolder(View itemView) {
             super(itemView);
-            favoriteItemView = itemView.findViewById(R.id.original_title_tv);
+            favoriteItemView = itemView.findViewById(R.id.title);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<FavoriteEntry> mFavorites; // Cached copy of favorites
 
-    public FavoriteAdapter(FavoriteActivity favoriteActivity) { mInflater = LayoutInflater.from(favoriteActivity); }
+    public FavoriteAdapter(Context context) {
+        mInflater = LayoutInflater.from(context); }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,17 +40,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if (mFavorites != null) {
-            FavoriteEntry current = mFavorites.get(position);
-            holder.favoriteItemView.setText(current.getId());
-        } else {
-            // Covers the case of data not being ready yet.
-            holder.favoriteItemView.setText("No Favorites Added");
-        }
+//        if (favoriteEntry != null) {
+//            FavoriteEntry current = favoriteEntry.get(position);
+//            holder.favoriteItemView.setText(current.getId());
+//        } else {
+//            // Covers the case of data not being ready yet.
+//            holder.favoriteItemView.setText("No Favorites Added");
+//        }
     }
 
     public void setFavoriteItems(List<FavoriteEntry> favorites){
-        mFavorites = favorites;
+        favoriteEntry = favorites;
         notifyDataSetChanged();
     }
 
@@ -54,8 +58,8 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     // mFavorites has not been updated (means initially, it's null, and we can't return null).
     @Override
     public int getItemCount() {
-        if (mFavorites != null)
-            return mFavorites.size();
+        if (favoriteEntry != null)
+            return favoriteEntry.size();
         else return 0;
     }
 

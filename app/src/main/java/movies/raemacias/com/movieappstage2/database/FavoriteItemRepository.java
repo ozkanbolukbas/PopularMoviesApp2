@@ -24,6 +24,7 @@ public class FavoriteItemRepository {
     }
 
     public LiveData<List<FavoriteEntry>> getFavoriteItems() {
+
         return favoriteEntry;
     }
 
@@ -37,6 +38,7 @@ public class FavoriteItemRepository {
         private FavoriteItemDao mAsyncTaskDao;
 
         insertAsyncTask(FavoriteItemDao dao) {
+
             mAsyncTaskDao = dao;
         }
 
