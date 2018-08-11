@@ -30,6 +30,7 @@ import movies.raemacias.com.movieappstage2.adapter.TrailerAdapter;
 import movies.raemacias.com.movieappstage2.api.Client;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
 import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
+import movies.raemacias.com.movieappstage2.database.FavoriteItemDao;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.Result;
@@ -58,7 +59,8 @@ public class DetailActivity extends AppCompatActivity {
     String content;
     LikeButton heartButton;
 
-    private FavoriteDatabase db;
+    FavoriteDatabase db;
+    private FavoriteItemDao favoriteDatabaseDao;
 
     private final AppCompatActivity activity = DetailActivity.this;
     private FavoriteEntry favoriteEntry;
@@ -70,6 +72,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        db = FavoriteDatabase.getFavoriteDatabase(this);
+        favoriteDatabaseDao = db.mFavoriteItemDao();
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -97,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
             reviews = getIntent().getExtras().getString("reviews");
             content = getIntent().getExtras().getString("content");
             author = getIntent().getExtras().getString("author");
-            favoriteEntry = new FavoriteEntry(movieTitle);
+            favoriteEntry = new FavoriteEntry("id");
 
 
             Picasso.get()
@@ -116,10 +120,20 @@ public class DetailActivity extends AppCompatActivity {
         loadJSON1();
 
         final LikeButton heartButton = findViewById(R.id.heart_button);
-        heartButton.setOnClickListener(new View.OnClickListener() {
+        heartButton.setOnLikeListener(new OnLikeListener() {
+            @Override
+            public void liked(LikeButton likeButton) {
+
+            }
+
+            @Override
+            public void unLiked(LikeButton likeButton) {
+
+            }
+
             public static final String TAG = "Detail Activity";
 
-            public void onClick(View v) {
+            public void onLike(View v) {
                 // Code here executes on main thread after user presses button
                 final FavoriteEntry insertFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
                         favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
@@ -127,7 +141,7 @@ public class DetailActivity extends AppCompatActivity {
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        db.mFavoriteItemDao().insertFavoriteItems(insertFavoriteItems);
+                        favoriteDatabaseDao.insertFavoriteItems(insertFavoriteItems);
                         Log.d(TAG, insertFavoriteItems.getOriginal_title() + " has been added to your favorites.");
                     }
                 });

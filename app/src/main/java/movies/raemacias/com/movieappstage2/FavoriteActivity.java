@@ -31,7 +31,7 @@ import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 public class FavoriteActivity extends AppCompatActivity {
 
 
-    public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
+//    public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
 
     private FavoriteViewModel mViewModel;
     FavoriteAdapter adapter;
@@ -92,17 +92,17 @@ public class FavoriteActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == NEW_FAVORITE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            FavoriteEntry favoriteEntry = new FavoriteEntry(data.getStringExtra(NewFavoriteActivity.EXTRA_REPLY));
-            mViewModel.insert(favoriteEntry);
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == NEW_FAVORITE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+//            FavoriteEntry favoriteEntry = new FavoriteEntry(data.getStringExtra(NewFavoriteActivity.EXTRA_REPLY));
+//            mViewModel.insert(favoriteEntry);
+//        } else {
+//            Toast.makeText(
+//                    getApplicationContext(),
+//                    R.string.empty_not_saved,
+//                    Toast.LENGTH_LONG).show();
+//        }
+//    }
 }
