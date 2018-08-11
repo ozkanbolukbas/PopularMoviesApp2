@@ -44,7 +44,7 @@ public class FavoriteItemRepository {
 
         @Override
         protected Void doInBackground(final FavoriteEntry... params) {
-            mAsyncTaskDao.insertFavoriteItem(params[0]);
+            mAsyncTaskDao.insertFavoriteItems(params[0]);
             return null;
         }
 
