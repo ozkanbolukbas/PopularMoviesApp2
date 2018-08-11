@@ -27,9 +27,8 @@ import movies.raemacias.com.movieappstage1.R;
 public class ButtonActivity extends DetailActivity implements OnLikeListener,
         OnAnimationEndListener {
 
-        public static final String TAG = "MainActivity";
+    public static final String TAG = "MainActivity";
     public static final String FAVORITE_ID = "favorite";
-
 
     @BindView(R.id.heart_button)
         LikeButton likeButton;
@@ -44,13 +43,11 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
             setSupportActionBar(toolbar);
 
 
-
             likeButton.setOnAnimationEndListener(this);
             likeButton.setOnLikeListener(this);
 
             likeButton.setOnLikeListener(this);
             likeButton.setOnAnimationEndListener(this);
-
         }
 
         @Override

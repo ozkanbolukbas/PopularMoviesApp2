@@ -125,22 +125,33 @@ public class DetailActivity extends AppCompatActivity {
 
             public void liked (LikeButton likeButton) {
                 // Code here executes on main thread after user presses button
-                final FavoriteEntry insertFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
+                final FavoriteEntry getFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
                         favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
 
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        favoriteDatabaseDao.insertFavoriteItems(insertFavoriteItems);
-                        Log.d(TAG, insertFavoriteItems.getOriginal_title() + " has been added to your favorites.");
+                        db.mFavoriteItemDao().insertFavoriteItems(getFavoriteItems);
+//                        Log.d(TAG, insertFavoriteItems.getId() + " has been added to your favorites.");
                     }
                 });
 
             }
 
+            //This is not correct - need to get the Like working first.
             @Override
             public void unLiked(LikeButton likeButton) {
 
+                final FavoriteEntry deleteFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
+                        favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
+
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        favoriteDatabaseDao.deleteFavoriteItems(deleteFavoriteItems);
+                        Log.d(TAG, deleteFavoriteItems.getOriginal_title() + " has been deleted from your favorites.");
+                    }
+                });
 
             }
 

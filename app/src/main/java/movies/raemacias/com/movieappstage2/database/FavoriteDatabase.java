@@ -25,6 +25,7 @@ import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 @Database(entities = {FavoriteEntry.class}, version = 1)
 public abstract class FavoriteDatabase extends RoomDatabase {
 
+
     public abstract FavoriteItemDao mFavoriteItemDao();
 
     private static FavoriteDatabase INSTANCE;
