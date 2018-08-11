@@ -31,7 +31,7 @@ import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 public class FavoriteActivity extends AppCompatActivity {
 
 
-    public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
+//    public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
 
     private FavoriteViewModel mViewModel;
     FavoriteAdapter adapter;
@@ -61,9 +61,9 @@ public class FavoriteActivity extends AppCompatActivity {
         // in the foreground.
         mViewModel.getFavoriteItems().observe(this, new Observer<List<FavoriteEntry>>() {
             @Override
-            public void onChanged(@Nullable final List<FavoriteEntry> words) {
+            public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setFavoriteItems(words);
+                adapter.setFavoriteItems(favoriteEntries);
             }
         });
 
@@ -77,32 +77,34 @@ public class FavoriteActivity extends AppCompatActivity {
 //        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_favorite) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == NEW_FAVORITE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            FavoriteEntry favoriteEntry = new FavoriteEntry(data.getStringExtra(NewFavoriteActivity.EXTRA_REPLY));
-            mViewModel.insert(favoriteEntry);
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
 }
+
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.menu_favorite) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+//}
+
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == NEW_FAVORITE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+//            FavoriteEntry favoriteEntry = new FavoriteEntry(data.getStringExtra(NewFavoriteActivity.EXTRA_REPLY));
+//            mViewModel.insert(favoriteEntry);
+//        } else {
+//            Toast.makeText(
+//                    getApplicationContext(),
+//                    R.string.empty_not_saved,
+//                    Toast.LENGTH_LONG).show();
+//        }
+//    }
+//}

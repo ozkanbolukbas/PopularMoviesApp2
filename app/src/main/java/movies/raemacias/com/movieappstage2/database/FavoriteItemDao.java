@@ -25,13 +25,13 @@ public interface FavoriteItemDao {
     LiveData<FavoriteEntry> getFavoriteItemById(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Long insertFavoriteItem(FavoriteEntry favoriteEntry);
+    void insertFavoriteItems(FavoriteEntry favoriteEntry);
 
     @Delete
-    void deleteFavoriteItem(FavoriteEntry favoriteEntry);
+    void deleteFavoriteItems(FavoriteEntry favoriteEntry);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateFavoriteItem(FavoriteEntry favoriteEntry);
+    void updateFavoriteItems(FavoriteEntry favoriteEntry);
 
 
 }

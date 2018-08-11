@@ -20,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 
 //This Button code was derived from the android-arsenal:
 //https://android-arsenal.com/details/1/3038#!description
@@ -85,7 +84,7 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
         @OnClick(R.id.heart_button)
         public void navigateToList()
         {
-            Intent intent = new Intent(this,ListActivity.class);
+            Intent intent = new Intent(this,FavoriteActivity.class);
             startActivity(intent);
         }
     }
