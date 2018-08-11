@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -114,20 +115,44 @@ public class DetailActivity extends AppCompatActivity {
         loadJSON();
         loadJSON1();
 
-        heartButton = findViewById(R.id.heart_button);
-        heartButton.setOnLikeListener(new OnLikeListener() {
-            @Override
-            public void liked(LikeButton heartButton) {
-                FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
-                favoriteItemRepository.insert(favoriteEntry);
+        final LikeButton heartButton = findViewById(R.id.heart_button);
+        heartButton.setOnClickListener(new View.OnClickListener() {
+            public static final String TAG = "Detail Activity";
+
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                final FavoriteEntry insertFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
+                        favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
+
+                AppExecutors.getInstance().diskIO().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        db.mFavoriteItemDao().insertFavoriteItems(insertFavoriteItems);
+                        Log.d(TAG, insertFavoriteItems.getOriginal_title() + " has been added to your favorites.");
+                    }
+                });
+
             }
 
-            @Override
-            public void unLiked(LikeButton heartButton) {
 
-            }
+
+
+//            @Override
+//            public void liked(LikeButton heartButton) {
+//                FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
+//                favoriteItemRepository.insert(favoriteEntry);
+//            }
+//
+//
+//            @Override
+//            public void unLiked(LikeButton heartButton) {
+//
+//            }
         });
+
+
     }
+
 
     private void loadJSON() {
 
