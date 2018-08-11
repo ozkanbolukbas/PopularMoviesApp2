@@ -122,6 +122,7 @@ public class DetailActivity extends AppCompatActivity {
         final LikeButton heartButton = findViewById(R.id.heart_button);
         heartButton.setOnLikeListener(new OnLikeListener() {
 
+
             public void liked (LikeButton likeButton) {
                 // Code here executes on main thread after user presses button
                 final FavoriteEntry getFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
@@ -157,6 +158,9 @@ public class DetailActivity extends AppCompatActivity {
             public static final String TAG = "Detail Activity";
 
 
+          
+
+
 //            @Override
 //            public void liked(LikeButton heartButton) {
 //                FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
@@ -169,6 +173,7 @@ public class DetailActivity extends AppCompatActivity {
 //
 //            }
         });
+
 
     }
 

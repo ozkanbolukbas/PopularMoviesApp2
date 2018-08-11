@@ -37,7 +37,7 @@ public abstract class FavoriteDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             FavoriteDatabase.class, "favorite_database")
                             // Wipes and rebuilds instead of migrating if no Migration object.
-                            .fallbackToDestructiveMigration()
+//                            .fallbackToDestructiveMigration()
 //                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
