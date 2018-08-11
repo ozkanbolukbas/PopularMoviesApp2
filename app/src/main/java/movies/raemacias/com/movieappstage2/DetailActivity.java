@@ -121,19 +121,9 @@ public class DetailActivity extends AppCompatActivity {
 
         final LikeButton heartButton = findViewById(R.id.heart_button);
         heartButton.setOnLikeListener(new OnLikeListener() {
-            @Override
-            public void liked(LikeButton likeButton) {
 
-            }
 
-            @Override
-            public void unLiked(LikeButton likeButton) {
-
-            }
-
-            public static final String TAG = "Detail Activity";
-
-            public void onLike(View v) {
+            public void liked (LikeButton likeButton) {
                 // Code here executes on main thread after user presses button
                 final FavoriteEntry insertFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
                         favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
@@ -148,7 +138,16 @@ public class DetailActivity extends AppCompatActivity {
 
             }
 
+            @Override
+            public void unLiked(LikeButton likeButton) {
 
+
+            }
+
+            public static final String TAG = "Detail Activity";
+
+
+          
 
 
 //            @Override

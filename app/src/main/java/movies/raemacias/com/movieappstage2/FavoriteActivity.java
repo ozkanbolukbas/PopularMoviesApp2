@@ -61,9 +61,9 @@ public class FavoriteActivity extends AppCompatActivity {
         // in the foreground.
         mViewModel.getFavoriteItems().observe(this, new Observer<List<FavoriteEntry>>() {
             @Override
-            public void onChanged(@Nullable final List<FavoriteEntry> words) {
+            public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setFavoriteItems(words);
+                adapter.setFavoriteItems(favoriteEntries);
             }
         });
 
@@ -77,20 +77,23 @@ public class FavoriteActivity extends AppCompatActivity {
 //        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
+}
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.menu_favorite) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.menu_favorite) {
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
+//}
+
 
 //    public void onActivityResult(int requestCode, int resultCode, Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
@@ -105,4 +108,8 @@ public class FavoriteActivity extends AppCompatActivity {
 //                    Toast.LENGTH_LONG).show();
 //        }
 //    }
+
+//}
+
 }
+

@@ -19,8 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-import movies.raemacias.com.movieappstage2.DetailActivity;
 import movies.raemacias.com.movieappstage1.R;
+import movies.raemacias.com.movieappstage2.DetailActivity;
 import movies.raemacias.com.movieappstage2.model.Result;
 
 
