@@ -101,7 +101,7 @@ public class DetailActivity extends AppCompatActivity {
             reviews = getIntent().getExtras().getString("reviews");
             content = getIntent().getExtras().getString("content");
             author = getIntent().getExtras().getString("author");
-            favoriteEntry = new FavoriteEntry("id");
+            favoriteEntry = new FavoriteEntry(movie_id, movieTitle, poster, release, rating, synopsis);
 
 
             Picasso.get()
