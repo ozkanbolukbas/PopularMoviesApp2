@@ -18,8 +18,10 @@ import movies.raemacias.com.movieappstage2.model.Result;
 @Dao
 public interface FavoriteItemDao {
 
-    @Query("SELECT * FROM FavoriteEntry")
+    @Query("SELECT * FROM FavoriteEntry ORDER BY id")
     LiveData<List<FavoriteEntry>> getFavoriteItems();
+
+
 
     @Query("SELECT * FROM FavoriteEntry WHERE id = :id")
     LiveData<FavoriteEntry> getFavoriteItemById(int id);
