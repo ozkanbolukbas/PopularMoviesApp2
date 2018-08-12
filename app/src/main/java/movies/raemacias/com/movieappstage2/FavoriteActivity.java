@@ -31,8 +31,6 @@ import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 public class FavoriteActivity extends AppCompatActivity {
 
 
-//    public static final int NEW_FAVORITE_ACTIVITY_REQUEST_CODE = 1;
-
     private FavoriteViewModel mViewModel;
     FavoriteAdapter adapter;
 
@@ -63,18 +61,10 @@ public class FavoriteActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
                 // Update the cached copy of the words in the adapter.
-                adapter.setFavoriteItems(favoriteEntries);
+                adapter.setId(favoriteEntries);
             }
         });
 
-//        LikeButton heartButton = findViewById(R.id.heart_button);
-//        heartButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(FavoriteActivity.this, NewFavoriteActivity.class);
-//                startActivityForResult(intent, NEW_FAVORITE_ACTIVITY_REQUEST_CODE);
-//            }
-//        });
     }
 
 //    @Override
@@ -95,21 +85,6 @@ public class FavoriteActivity extends AppCompatActivity {
 //}
 
 
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == NEW_FAVORITE_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-//            FavoriteEntry favoriteEntry = new FavoriteEntry(data.getStringExtra(NewFavoriteActivity.EXTRA_REPLY));
-//            mViewModel.insert(favoriteEntry);
-//        } else {
-//            Toast.makeText(
-//                    getApplicationContext(),
-//                    R.string.empty_not_saved,
-//                    Toast.LENGTH_LONG).show();
-//        }
-//    }
-
-//}
 
 
 
