@@ -2,7 +2,6 @@ package movies.raemacias.com.movieappstage2.api;
 
 import movies.raemacias.com.movieappstage1.BuildConfig;
 import movies.raemacias.com.movieappstage2.model.MovieModel;
-//import movies.raemacias.com.movieappstage1.model.MovieResponse;
 import movies.raemacias.com.movieappstage2.model.ReviewModel;
 import movies.raemacias.com.movieappstage2.model.TrailerModel;
 import retrofit2.Call;

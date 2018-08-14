@@ -1,15 +1,11 @@
 package movies.raemacias.com.movieappstage2.model;
 
 import android.app.Application;
-import android.app.LauncherActivity;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.util.Log;
 
 import java.util.List;
 
-import movies.raemacias.com.movieappstage2.FavoriteActivity;
-import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 
 public class FavoriteViewModel extends AndroidViewModel {

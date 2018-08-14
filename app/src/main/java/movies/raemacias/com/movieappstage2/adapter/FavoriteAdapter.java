@@ -10,7 +10,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.FavoriteActivity;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {

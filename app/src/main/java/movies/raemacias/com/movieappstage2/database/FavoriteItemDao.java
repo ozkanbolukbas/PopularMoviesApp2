@@ -11,7 +11,6 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
-import movies.raemacias.com.movieappstage2.model.Result;
 
 //This code was generate by watching the tutorial from wiseAss on YouTube.
 //https://www.youtube.com/watch?v=LCOKWgHdBvE&t=170s
