@@ -1,6 +1,9 @@
 package movies.raemacias.com.movieappstage2;
 
 import android.annotation.TargetApi;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,6 +36,7 @@ import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemDao;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
+import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 import movies.raemacias.com.movieappstage2.model.Result;
 import movies.raemacias.com.movieappstage2.model.ReviewModel;
 import movies.raemacias.com.movieappstage2.model.ReviewResult;
@@ -64,9 +68,12 @@ public class DetailActivity extends AppCompatActivity {
 
     private final AppCompatActivity activity = DetailActivity.this;
     private FavoriteEntry favoriteEntry;
+    FavoriteViewModel mViewModel;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
+    Boolean isFavorite = false;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +81,7 @@ public class DetailActivity extends AppCompatActivity {
 
         db = FavoriteDatabase.getFavoriteDatabase(this);
         favoriteDatabaseDao = db.mFavoriteItemDao();
+
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
@@ -88,6 +96,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView textViewVoteAverage = findViewById(R.id.vote_average_tv);
         TextView textViewPlotSynopsis = findViewById(R.id.plot_synopsis_tv);
         TextView textViewReleaseDate = findViewById(R.id.release_tv);
+        final LikeButton heartButton = findViewById(R.id.heart_button);
 
         Intent intent = getIntent();
         if (intent.hasExtra("original_title")) {
@@ -103,6 +112,22 @@ public class DetailActivity extends AppCompatActivity {
             author = getIntent().getExtras().getString("author");
             favoriteEntry = new FavoriteEntry(movie_id, movieTitle, poster, release, rating, synopsis);
 
+            mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
+
+            // Add an observer on the LiveData returned by getAlphabetizedWords.
+            // The onChanged() method fires when the observed data changes and the activity is
+            // in the foreground.
+            mViewModel.getFavoriteItems().observe(this, new Observer<List<FavoriteEntry>>() {
+                @Override
+                public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
+                    for (FavoriteEntry item: favoriteEntries) {
+                        if (item.getId() == favoriteEntry.getId()) {
+                            heartButton.setLiked(true);
+                        }
+                    }
+                    // Update the cached copy of the words in the adapter.
+                }
+            });
 
             Picasso.get()
                     .load("http://image.tmdb.org/t/p/w342" + poster)
@@ -119,7 +144,7 @@ public class DetailActivity extends AppCompatActivity {
         loadJSON();
         loadJSON1();
 
-        final LikeButton heartButton = findViewById(R.id.heart_button);
+
         heartButton.setOnLikeListener(new OnLikeListener() {
 
 
@@ -156,9 +181,6 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             public static final String TAG = "Detail Activity";
-
-
-          
 
 
 //            @Override
