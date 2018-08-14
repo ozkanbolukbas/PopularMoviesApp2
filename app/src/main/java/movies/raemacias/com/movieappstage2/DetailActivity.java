@@ -1,7 +1,6 @@
 package movies.raemacias.com.movieappstage2;
 
 import android.annotation.TargetApi;
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,7 +32,6 @@ import movies.raemacias.com.movieappstage2.api.Client;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
 import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemDao;
-import movies.raemacias.com.movieappstage2.database.FavoriteItemRepository;
 import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 import movies.raemacias.com.movieappstage2.model.Result;
