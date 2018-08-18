@@ -43,9 +43,4 @@ public interface MovieInterface {
     @GET("{movie_id}/videos")
     Call<TrailerModel> getMovieTrailer(@Path("movie_id") int id, @Query("api_key") String api_key);
 
-    //for retrieval to add to db
-//    @GET("id")
-//    Call<MovieModel> getId(
-//            @Query("api_key") String api_key);
-
 }

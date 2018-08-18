@@ -1,64 +1,83 @@
 package movies.raemacias.com.movieappstage2.model;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
+@Entity(tableName = "favorites")
 public class Result {
 
-    @SerializedName("original_title")
-    @Expose
-    private String originalTitle;
-
-    @SerializedName("overview")
-    @Expose
-    private String overview;
-
-    @SerializedName("release_date")
-    @Expose
-    private String releaseDate;
-
-    @SerializedName("poster_path")
-    @Expose
-    private String posterPath;
-
-    @SerializedName("vote_count")
-    @Expose
-    private int voteCount;
-
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private int id;
 
+    @ColumnInfo (name = "original_title")
+    @SerializedName("original_title")
+    @Expose
+    private String originalTitle;
+
+    @ColumnInfo
+    @SerializedName("overview")
+    @Expose
+    private String overview;
+
+    @ColumnInfo
+    @SerializedName("release_date")
+    @Expose
+    private String releaseDate;
+
+    @ColumnInfo
+    @SerializedName("poster_path")
+    @Expose
+    private String posterPath;
+
+    @ColumnInfo
+    @SerializedName("vote_count")
+    @Expose
+    private int voteCount;
+
+    @ColumnInfo
     @SerializedName("video")
     @Expose
     private boolean video;
 
+    @ColumnInfo
     @SerializedName("vote_average")
     @Expose
     private double voteAverage;
 
+    @ColumnInfo
     @SerializedName("title")
     @Expose
     private String title;
 
+    @ColumnInfo
     @SerializedName("popularity")
     @Expose
     private double popularity;
 
+    @ColumnInfo
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
+//
+//    @SerializedName("genre_ids")
+//    @Expose
+////    @TypeConverters(LongConverter.class)
+//    private List<Result> genreIds = null;
 
-    @SerializedName("genre_ids")
-    @Expose
-    private List<Integer> genreIds = null;
-
+    @ColumnInfo
     @SerializedName("backdrop_path")
     @Expose
     private String backdropPath;
 
+    @ColumnInfo
     @SerializedName("adult")
     @Expose
     private boolean adult;
@@ -135,13 +154,13 @@ public class Result {
         this.originalTitle = originalTitle;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
+//    public List<Integer> getGenreIds() {
+//        return genreIds;
+//    }
 
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
+//    public void setGenreIds(List<Integer> genreIds) {
+//        this.genreIds = genreIds;
+//    }
 
     public String getBackdropPath() {
         return backdropPath;
@@ -175,5 +194,26 @@ public class Result {
         this.releaseDate = releaseDate;
     }
 
+//    @Ignore
+//    public Result(int id,
+//                  String originalTitle,
+//                  String posterPath,
+//                  String releaseDate,
+//                  double voteAverage,
+//                  String overview) {
+//        this.originalTitle = originalTitle;
+//        this.posterPath = posterPath;
+//        this.releaseDate = releaseDate;
+//        this.voteAverage = voteAverage;
+//        this.overview = overview;
+//    }
 
+    public Result(@NonNull int id, String originalTitle, String posterPath, String releaseDate, double voteAverage, String overview) {
+        this.id = id;
+        this.originalTitle = originalTitle;
+        this.posterPath = posterPath;
+        this.releaseDate = releaseDate;
+        this.voteAverage = voteAverage;
+        this.overview = overview;
+    }
 }

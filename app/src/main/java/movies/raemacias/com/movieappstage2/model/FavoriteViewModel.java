@@ -13,21 +13,21 @@ public class FavoriteViewModel extends AndroidViewModel {
     private static final String TAG = FavoriteViewModel.class.getSimpleName();
     private FavoriteItemRepository mRepository;
 
-    private LiveData<List<FavoriteEntry>> favoriteEntry;
+    private LiveData<List<Result>> favoriteResults;
 
     public FavoriteViewModel(Application application) {
         super(application);
         mRepository = new FavoriteItemRepository(application);
-        favoriteEntry = mRepository.getFavoriteItems();
+        favoriteResults = mRepository.getFavoriteItems();
     }
 
 
-    public LiveData<List<FavoriteEntry>> getFavoriteItems() {
-        return favoriteEntry;
+    public LiveData<List<Result>> getFavoriteItems() {
+        return favoriteResults;
     }
 
-    public void insert(FavoriteEntry favoriteEntry) {
-            mRepository.insert(favoriteEntry);
+    public void insert(Result favoriteResults) {
+            mRepository.insert(favoriteResults);
     }
 }
 

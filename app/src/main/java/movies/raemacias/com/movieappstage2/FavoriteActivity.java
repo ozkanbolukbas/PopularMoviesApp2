@@ -13,8 +13,8 @@ import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
 import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
-import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
+import movies.raemacias.com.movieappstage2.model.Result;
 
 
 //Code implemented from the Udacity Architecture Components lessons.
@@ -48,9 +48,9 @@ public class FavoriteActivity extends AppCompatActivity {
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is
         // in the foreground.
-        mViewModel.getFavoriteItems().observe(this, new Observer<List<FavoriteEntry>>() {
+        mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
             @Override
-            public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
+            public void onChanged(@Nullable final List<Result> favoriteEntries) {
                 // Update the cached copy of the words in the adapter.
                 adapter.setId(favoriteEntries);
             }

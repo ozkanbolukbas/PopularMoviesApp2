@@ -12,7 +12,7 @@ public class FavoriteViewModelFactory extends ViewModelProvider.NewInstanceFacto
 
 //   private final FavoriteDatabase db;
     private final Application mApplication;
-   private final FavoriteDatabase mFavorites;
+    private final FavoriteDatabase mFavorites;
 
     public FavoriteViewModelFactory(Application application, FavoriteDatabase favorites) {
         mApplication = application;
