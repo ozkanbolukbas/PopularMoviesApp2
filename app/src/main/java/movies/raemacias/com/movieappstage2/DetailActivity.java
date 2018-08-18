@@ -32,7 +32,6 @@ import movies.raemacias.com.movieappstage2.api.Client;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
 import movies.raemacias.com.movieappstage2.database.FavoriteDatabase;
 import movies.raemacias.com.movieappstage2.database.FavoriteItemDao;
-import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
 import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 import movies.raemacias.com.movieappstage2.model.Result;
 import movies.raemacias.com.movieappstage2.model.ReviewModel;
@@ -53,6 +52,7 @@ public class DetailActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     List<ReviewResult> mResults;
     ReviewAdapter mReviewAdapter;
+    Result favoriteResults;
 
     int movie_id;
     String reviews;
@@ -64,7 +64,6 @@ public class DetailActivity extends AppCompatActivity {
     private FavoriteItemDao favoriteDatabaseDao;
 
     private final AppCompatActivity activity = DetailActivity.this;
-    private FavoriteEntry favoriteEntry;
     FavoriteViewModel mViewModel;
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -107,18 +106,19 @@ public class DetailActivity extends AppCompatActivity {
             reviews = getIntent().getExtras().getString("reviews");
             content = getIntent().getExtras().getString("content");
             author = getIntent().getExtras().getString("author");
-            favoriteEntry = new FavoriteEntry(movie_id, movieTitle, poster, release, rating, synopsis);
+            double voteAverage = 0;
+            favoriteResults = new Result(movie_id,  movieTitle, poster, release, voteAverage, synopsis);
 
             mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
 
             // Add an observer on the LiveData returned by getAlphabetizedWords.
             // The onChanged() method fires when the observed data changes and the activity is
             // in the foreground.
-            mViewModel.getFavoriteItems().observe(this, new Observer<List<FavoriteEntry>>() {
+            mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
                 @Override
-                public void onChanged(@Nullable final List<FavoriteEntry> favoriteEntries) {
-                    for (FavoriteEntry item: favoriteEntries) {
-                        if (item.getId() == favoriteEntry.getId()) {
+                public void onChanged(@Nullable final List<Result> favoriteEntries) {
+                    for (Result item: favoriteEntries) {
+                        if (item.getId() == favoriteResults.getId()) {
                             heartButton.setLiked(true);
                         }
                     }
@@ -147,13 +147,13 @@ public class DetailActivity extends AppCompatActivity {
 
             public void liked (LikeButton likeButton) {
                 // Code here executes on main thread after user presses button
-                final FavoriteEntry getFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
-                        favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
+                final Result getFavoriteItems = new Result(favoriteResults.getId(), favoriteResults.getOriginalTitle(),
+                        favoriteResults.getPosterPath(), favoriteResults.getReleaseDate(), favoriteResults.getVoteAverage(), favoriteResults.getOverview());
 
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        db.mFavoriteItemDao().insertFavoriteItems(getFavoriteItems);
+                        db.mFavoriteItemDao().insertFavorite(getFavoriteItems);
 //                        Log.d(TAG, insertFavoriteItems.getId() + " has been added to your favorites.");
                     }
                 });
@@ -164,14 +164,14 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void unLiked(LikeButton likeButton) {
 
-                final FavoriteEntry deleteFavoriteItems = new FavoriteEntry(favoriteEntry.getId(), favoriteEntry.getOriginal_title(),
-                        favoriteEntry.getPoster_path(), favoriteEntry.getRelease_date(), favoriteEntry.getRating(), favoriteEntry.getOverview());
+                final Result deleteFavoriteItems = new Result(favoriteResults.getId(), favoriteResults.getOriginalTitle(),
+                        favoriteResults.getPosterPath(), favoriteResults.getReleaseDate(), favoriteResults.getVoteAverage(), favoriteResults.getOverview());
 
                 AppExecutors.getInstance().diskIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        favoriteDatabaseDao.deleteFavoriteItems(deleteFavoriteItems);
-                        Log.d(TAG, deleteFavoriteItems.getOriginal_title() + " has been deleted from your favorites.");
+                        favoriteDatabaseDao.deleteFavorite(deleteFavoriteItems);
+                        Log.d(TAG, deleteFavoriteItems.getOriginalTitle() + " has been deleted from your favorites.");
                     }
                 });
 
@@ -180,17 +180,6 @@ public class DetailActivity extends AppCompatActivity {
             public static final String TAG = "Detail Activity";
 
 
-//            @Override
-//            public void liked(LikeButton heartButton) {
-//                FavoriteItemRepository favoriteItemRepository = new FavoriteItemRepository(getApplication());
-//                favoriteItemRepository.insert(favoriteEntry);
-//            }
-//
-//
-//            @Override
-//            public void unLiked(LikeButton heartButton) {
-//
-//            }
         });
 
 

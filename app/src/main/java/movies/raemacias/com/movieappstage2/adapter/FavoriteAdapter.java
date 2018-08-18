@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
+import movies.raemacias.com.movieappstage2.model.Result;
 
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
@@ -25,7 +25,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         }
 
         private final LayoutInflater mInflater;
-        private List<FavoriteEntry> favoriteEntry; // Cached copy of words
+        private List<Result> favoriteResults; // Cached copy of words
 
         public FavoriteAdapter(Context context) { mInflater = LayoutInflater.from(context); }
 
@@ -37,17 +37,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            if (favoriteEntry != null) {
-                FavoriteEntry current = favoriteEntry.get(position);
-                holder.favoriteItemView.setText(current.getOriginal_title());
+            if (favoriteResults != null) {
+                Result current = favoriteResults.get(position);
+                holder.favoriteItemView.setText(current.getOriginalTitle());
             } else {
                 // Covers the case of data not being ready yet.
                 holder.favoriteItemView.setText("No favorite.");
             }
         }
 
-        public void setId(List<FavoriteEntry> favorites){
-            favoriteEntry = favorites;
+        public void setId(List<Result> favorites){
+            favoriteResults = favorites;
             notifyDataSetChanged();
         }
 
@@ -55,51 +55,9 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         // mWords has not been updated (means initially, it's null, and we can't return null).
         @Override
         public int getItemCount() {
-            if (favoriteEntry != null)
-                return favoriteEntry.size();
+            if (favoriteResults != null)
+                return favoriteResults.size();
             else return 0;
         }
     }
-
-//    public FavoriteAdapter(Context context) {
-//        this.context = context;
-//        this.favoriteEntry = favoriteEntry;
-//    }
-//
-//    @Override
-//    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//        View itemView = LayoutInflater.from(context).inflate(R.layout.activity_favorite, parent, false);
-//        return new ViewHolder(itemView);
-//    }
-//
-//    @Override
-//    public void onBindViewHolder(ViewHolder holder, int position) {
-//        FavoriteEntry f = favoriteEntry.get(position);
-//        holder.favoriteItemView.setText(f.getId());
-//
-//        if (favoriteEntry != null) {
-//            FavoriteEntry current = favoriteEntry.get(position);
-//            holder.favoriteItemView.setText(current.getId());
-////            holder.favoriteItemView.setText(current.getId());
-//        } else {
-//            // Covers the case of data not being ready yet.
-//            holder.favoriteItemView.setText("No Favorites Added");
-//        }
-//    }
-//
-//    public void setFavoriteItems(List<FavoriteEntry> favorites){
-//        favoriteEntry = favorites;
-//        notifyDataSetChanged();
-//    }
-//
-//    // getItemCount() is called many times, and when it is first called,
-//    // mFavorites has not been updated (means initially, it's null, and we can't return null).
-//    @Override
-//    public int getItemCount() {
-//        if (favoriteEntry != null)
-//            return favoriteEntry.size();
-//        else return 0;
-//    }
-//
-//}
 

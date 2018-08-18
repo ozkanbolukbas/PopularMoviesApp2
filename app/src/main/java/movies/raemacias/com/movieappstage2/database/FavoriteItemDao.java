@@ -10,29 +10,25 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import movies.raemacias.com.movieappstage2.model.FavoriteEntry;
+import movies.raemacias.com.movieappstage2.model.Result;
 
 //This code was generate by watching the tutorial from wiseAss on YouTube.
 //https://www.youtube.com/watch?v=LCOKWgHdBvE&t=170s
 @Dao
 public interface FavoriteItemDao {
 
-    @Query("SELECT * FROM FavoriteEntry ORDER BY id")
-    LiveData<List<FavoriteEntry>> getFavoriteItems();
+    @Query("SELECT * FROM favorites")
+    LiveData<List<Result>> loadAllFavorites();
 
+    @Query("SELECT * FROM favorites where id= :movie_id")
+    LiveData<Result> loadFavoriteResults (int movie_id);
 
-
-    @Query("SELECT * FROM FavoriteEntry WHERE id = :id")
-    LiveData<FavoriteEntry> getFavoriteItemById(int id);
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertFavoriteItems(FavoriteEntry favoriteEntry);
-
-    @Delete
-    void deleteFavoriteItems(FavoriteEntry favoriteEntry);
+    @Insert
+    void insertFavorite(Result favoriteResults);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    void updateFavoriteItems(FavoriteEntry favoriteEntry);
+    void updateFavorite(Result favoriteResults);
 
-
+    @Delete
+    void deleteFavorite(Result favoriteResults);
 }
