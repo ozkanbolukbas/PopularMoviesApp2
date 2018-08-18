@@ -5,9 +5,14 @@ package movies.raemacias.com.movieappstage2;
 //Networking course and other student advice and input
 //stage 2 help came from Lynda.com, David Gassner tutorials
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -69,29 +74,29 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         //per suggested in the implementation guide, this
         //is from https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out
-        try {
-            URL url = new URL("https://www.themoviedb.org/movie" );
-            executeReq(url);
-        }
-        catch(Exception e) {
-            Toast.makeText(getApplicationContext(), "Oops! No internet access available!", Toast.LENGTH_SHORT).show();
-        }
     }
+            private boolean isNetworkAvailable() {
+                ConnectivityManager connectivityManager
+                        = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+//                return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+                //This if statement code came from Stack Overflow here:
+                //https://stackoverflow.com/questions/15866035/android-show-a-message-if-no-internet-connection-and-continue-to-check
+                if (activeNetworkInfo == null) {
+                    Toast.makeText(getApplicationContext(), "Oops! No internet access available!", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "no internet connection");
+                    return false;
+                } else {
+                    if (activeNetworkInfo.isConnected()) {
+                        Log.d(TAG, " internet connection available...");
+                        return true;
+                    } else {
+                        Log.d(TAG, " internet connection");
+                        return true;
+                    }
+                }
+            }
 
-    private void executeReq(URL urlObject) throws IOException
-    {
-        HttpURLConnection conn = null;
-        conn = (HttpURLConnection) urlObject.openConnection();
-        conn.setReadTimeout(30000);//milliseconds
-        conn.setConnectTimeout(3500);//milliseconds
-        conn.setRequestMethod("GET");
-        conn.setDoInput(true);
-
-        // Start connect
-        conn.connect();
-        InputStream response =conn.getInputStream();
-        Log.d("Response:", response.toString());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
