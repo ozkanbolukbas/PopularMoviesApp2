@@ -5,13 +5,9 @@ package movies.raemacias.com.movieappstage2;
 //Networking course and other student advice and input
 //stage 2 help came from Lynda.com, David Gassner tutorials
 
-import android.app.Activity;
-import android.app.Application;
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
@@ -29,19 +25,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+
+import com.like.LikeButton;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
-import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
 import movies.raemacias.com.movieappstage2.adapter.MoviesAdapter;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
 import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
@@ -67,10 +60,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private Parcelable recyclerPosition;
     private GridLayoutManager mGridLayoutManager;
     private static final String RECYCLER_POSITION = "RecyclerViewPosition";
+    private static final String FAVORITE_RESULTS = "favoriteResults";
     private SharedPreferences mSharedPreferences;
 
     private FavoriteViewModel mViewModel;
-    FavoriteAdapter mFavoriteAdapter;
+    LikeButton heartButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,24 +81,18 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Get a new or existing ViewModel from the ViewModelProvider.
         mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
 
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
-
-        //This is crashing with the following error:
-        //java.lang.NullPointerException: Attempt to invoke virtual method 'void movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter.setId(java.util.List)' on a null object reference
-        //at movies.raemacias.com.movieappstage2.MainActivity$1.onChanged(MainActivity.java:105)
-        //at movies.raemacias.com.movieappstage2.MainActivity$1.onChanged(MainActivity.java:101)
         mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
-                    @Override
-                    public void onChanged(@Nullable final List<Result> favoriteResults) {
-                        // Update the cached copy of the words in the adapter.
-                        mFavoriteAdapter.setId(favoriteResults);
+            @Override
+            public void onChanged(@Nullable final List<Result> favoriteResults) {
+                for (Result item : favoriteResults) {
+                    if (item.getId() == DetailActivity.favoriteResults.getId()) {
+                        heartButton.setLiked(true);
                     }
-        });
+                }
+            }
+                });
 
 
         initPopularMovieView();
@@ -170,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 //                when ready to implement - add favorites to onOptions here
             case R.id.menu_favorite:
-                startActivity(new Intent(this, FavoriteActivity.class));
+//                startActivity(new Intent(this, FavoriteActivity.class));
+                mViewModel.getFavoriteItems();
                 return true;
 
 

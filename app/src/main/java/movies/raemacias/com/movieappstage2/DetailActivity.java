@@ -52,13 +52,16 @@ public class DetailActivity extends AppCompatActivity {
     RecyclerView mRecyclerView;
     List<ReviewResult> mResults;
     ReviewAdapter mReviewAdapter;
-    Result favoriteResults;
+    static Result favoriteResults;
 
     int movie_id;
     String reviews;
     String author;
     String content;
     LikeButton heartButton;
+
+    private static final String FAVORITE_RESULTS = "favoriteResults";
+
 
     FavoriteDatabase db;
     private FavoriteItemDao favoriteDatabaseDao;
@@ -160,6 +163,7 @@ public class DetailActivity extends AppCompatActivity {
 
             }
 
+            //This is not correct - need to get the Like working first.
             @Override
             public void unLiked(LikeButton likeButton) {
 
@@ -178,7 +182,9 @@ public class DetailActivity extends AppCompatActivity {
 
             public static final String TAG = "Detail Activity";
 
+
         });
+
 
     }
 

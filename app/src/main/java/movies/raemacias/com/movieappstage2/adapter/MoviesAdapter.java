@@ -32,7 +32,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     private String RESULTS = "results";
 
     private final Context context;
-    private final List<Result> results;
+    private List<Result> results;
 
     public MoviesAdapter(Context context, List<Result> results) {
         this.context = context;
@@ -61,6 +61,11 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
                 .placeholder(R.drawable.popcorn)
                 .error(R.drawable.error_placeholder)
                 .into(holder.imageViewMovieListItem);
+    }
+
+    public void setId(List<Result> favoriteResults){
+        results = favoriteResults;
+        notifyDataSetChanged();
     }
 
     @Override
