@@ -12,6 +12,8 @@ import java.util.List;
 import movies.raemacias.com.movieappstage1.R;
 import movies.raemacias.com.movieappstage2.model.Result;
 
+//This code came from CodeLabs - Room with a View
+
 public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHolder> {
 
 
@@ -31,7 +33,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View itemView = mInflater.inflate(R.layout.activity_favorite, parent, false);
+            View itemView = mInflater.inflate(R.layout.activity_main, parent, false);
             return new ViewHolder(itemView);
         }
 
