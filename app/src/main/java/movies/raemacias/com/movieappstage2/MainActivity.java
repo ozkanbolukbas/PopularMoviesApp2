@@ -7,6 +7,9 @@ package movies.raemacias.com.movieappstage2;
 
 import android.app.Activity;
 import android.app.Application;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +20,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,8 +41,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import movies.raemacias.com.movieappstage1.R;
+import movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter;
 import movies.raemacias.com.movieappstage2.adapter.MoviesAdapter;
 import movies.raemacias.com.movieappstage2.api.MovieInterface;
+import movies.raemacias.com.movieappstage2.model.FavoriteViewModel;
 import movies.raemacias.com.movieappstage2.model.MovieModel;
 import movies.raemacias.com.movieappstage2.model.Result;
 import retrofit2.Call;
@@ -63,6 +69,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String RECYCLER_POSITION = "RecyclerViewPosition";
     private SharedPreferences mSharedPreferences;
 
+    private FavoriteViewModel mViewModel;
+    FavoriteAdapter mFavoriteAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +86,26 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        // Get a new or existing ViewModel from the ViewModelProvider.
+        mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
+
+        // Add an observer on the LiveData returned by getAlphabetizedWords.
+        // The onChanged() method fires when the observed data changes and the activity is
+        // in the foreground.
+
+        //This is crashing with the following error:
+        //java.lang.NullPointerException: Attempt to invoke virtual method 'void movies.raemacias.com.movieappstage2.adapter.FavoriteAdapter.setId(java.util.List)' on a null object reference
+        //at movies.raemacias.com.movieappstage2.MainActivity$1.onChanged(MainActivity.java:105)
+        //at movies.raemacias.com.movieappstage2.MainActivity$1.onChanged(MainActivity.java:101)
+        mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
+                    @Override
+                    public void onChanged(@Nullable final List<Result> favoriteResults) {
+                        // Update the cached copy of the words in the adapter.
+                        mFavoriteAdapter.setId(favoriteResults);
+                    }
+        });
+
 
         initPopularMovieView();
         initHighestRatingView();
@@ -299,13 +328,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         String sortOrder = preferences.getString(
                 this.getString(R.string.pref_sort_key),
-                this.getString(R.string.pref_sort_popular)
-//                ,
-//                this.getString(R.string.pref_sort_favorite)
-        );
-//                ),
-//                this.getString(R.string.pref_sort_favorite))
-//                ;
+                this.getString(R.string.pref_sort_popular));
+//                mViewModel.getFavoriteItems(R.string.pref_sort_favorite));
 
         if (sortOrder.equals(this.getString(R.string.pref_sort_popular))) {
             Log.d(LOG_TAG, "Sort by most popular.");
@@ -313,10 +337,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         } else if (sortOrder.equals(this.getString(R.string.pref_sort_rating))) {
             Log.d(LOG_TAG, "Sort by highest rating.");
             loadJSON1();
-//        } else if (sortOrder.equals(this.getString(R.string.pref_sort_favorite))) {
-////
-////            Log.d(LOG_TAG, "Sort by favorites.");
-////            loadFavoriteItem();
+        } else if (sortOrder.equals(this.getString(R.string.pref_sort_favorite))) {
+           Log.d(LOG_TAG, "Sort by favorites.");
+            mViewModel.getFavoriteItems();
         }
     }
     @Override

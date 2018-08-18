@@ -160,7 +160,6 @@ public class DetailActivity extends AppCompatActivity {
 
             }
 
-            //This is not correct - need to get the Like working first.
             @Override
             public void unLiked(LikeButton likeButton) {
 
@@ -179,9 +178,7 @@ public class DetailActivity extends AppCompatActivity {
 
             public static final String TAG = "Detail Activity";
 
-
         });
-
 
     }
 
