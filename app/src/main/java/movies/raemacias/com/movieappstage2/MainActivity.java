@@ -58,9 +58,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String TAG = "MainActivity";
     private String LOG_TAG;
 
-    private Parcelable savedRecyclerLayoutState;
+    private Parcelable recyclerPosition;
     private GridLayoutManager mGridLayoutManager;
-    private static final String BUNDLE_RECYCLER_LAYOUT = "recycler_layout";
+    private static final String RECYCLER_POSITION = "RecyclerViewPosition";
+    private SharedPreferences mSharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.recyclerview);
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -86,21 +88,15 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT,
-                mGridLayoutManager.onSaveInstanceState());
+        outState.putParcelable(RECYCLER_POSITION,
+                recyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-        //restore recycler view at same position
-        if (savedInstanceState != null) {
-            savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
-        }
-
-        if(savedRecyclerLayoutState!=null){
-            mGridLayoutManager.onRestoreInstanceState(savedRecyclerLayoutState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_POSITION)) {
+            recyclerPosition = savedInstanceState.getParcelable(RECYCLER_POSITION);
         }
     }
 
