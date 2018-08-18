@@ -14,6 +14,7 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +25,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -56,11 +58,16 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String TAG = "MainActivity";
     private String LOG_TAG;
 
+    private Parcelable savedRecyclerLayoutState;
+    private GridLayoutManager mGridLayoutManager;
+    private static final String BUNDLE_RECYCLER_LAYOUT = "recycler_layout";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        recyclerView = findViewById(R.id.recyclerview);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,17 +76,38 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        initViews();
-        initViews1();
-
-        //per suggested in the implementation guide, this
-        //is from https://stackoverflow.com/questions/1560788/how-to-check-internet-access-on-android-inetaddress-never-times-out
+        initPopularMovieView();
+        initHighestRatingView();
+        initFavoriteMovieView();
     }
+
+    //This code came from Stack Overflow:
+    //https://stackoverflow.com/questions/27816217/how-to-save-recyclerviews-scroll-position-using-recyclerview-state
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(BUNDLE_RECYCLER_LAYOUT,
+                mGridLayoutManager.onSaveInstanceState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        //restore recycler view at same position
+        if (savedInstanceState != null) {
+            savedRecyclerLayoutState = savedInstanceState.getParcelable(BUNDLE_RECYCLER_LAYOUT);
+        }
+
+        if(savedRecyclerLayoutState!=null){
+            mGridLayoutManager.onRestoreInstanceState(savedRecyclerLayoutState);
+        }
+    }
+
             private boolean isNetworkAvailable() {
                 ConnectivityManager connectivityManager
                         = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-//                return activeNetworkInfo != null && activeNetworkInfo.isConnected();
                 //This if statement code came from Stack Overflow here:
                 //https://stackoverflow.com/questions/15866035/android-show-a-message-if-no-internet-connection-and-continue-to-check
                 if (activeNetworkInfo == null) {
@@ -96,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                     }
                 }
             }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         return true;
     }
 
-    private void initViews() {
+    private void initPopularMovieView() {
         checkSortOrder();
     }
 
@@ -202,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         });
     }
-    private void initViews1() {
+    private void initHighestRatingView() {
         checkSortOrder();
     }
     //for 2nd API call
@@ -258,7 +285,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         });
     }
 
-    private void initViews2() {
+
+    private void initFavoriteMovieView() {
         checkSortOrder();
     }
 
