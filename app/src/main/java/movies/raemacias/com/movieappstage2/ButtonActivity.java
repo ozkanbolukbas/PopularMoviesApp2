@@ -79,7 +79,7 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
         @OnClick(R.id.heart_button)
         public void navigateToList()
         {
-            Intent intent = new Intent(this,FavoriteActivity.class);
+            Intent intent = new Intent(this,MainActivity.class);
             startActivity(intent);
         }
     }
