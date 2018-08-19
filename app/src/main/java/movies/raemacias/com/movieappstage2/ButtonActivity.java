@@ -37,7 +37,7 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_detail);
             ButterKnife.bind(this);
-            Toolbar toolbar = findViewById(R.id.my_toolbar);
+            Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
             if (getSupportActionBar() != null) {

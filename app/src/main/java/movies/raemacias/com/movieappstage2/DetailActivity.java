@@ -82,12 +82,12 @@ public class DetailActivity extends AppCompatActivity {
         favoriteDatabaseDao = db.mFavoriteItemDao();
 
 
-        Toolbar toolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
 
         TextView textViewOriginalTitle = findViewById(R.id.original_title_tv);
         ImageView imageViewMovieListItem = findViewById(R.id.movie_poster_iv);

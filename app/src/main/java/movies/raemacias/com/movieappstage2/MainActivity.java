@@ -78,12 +78,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        if (getSupportActionBar() != null) {
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        }
-
-
-
         initPopularMovieView();
         initHighestRatingView();
         initFavoriteMovieView();
@@ -137,9 +131,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         switch (item.getItemId()) {
             case R.id.menu_popular:
                 loadJSON();
@@ -149,12 +140,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
                 loadJSON1();
                 break;
 
-//                when ready to implement - add favorites to onOptions here
             case R.id.menu_favorite:
                 recyclerView.setAdapter(new MoviesAdapter(getApplicationContext(), favoriteMovies));
                 loadFavoriteMovies();
                 return true;
-
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -306,15 +295,9 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             @Override
             public void onChanged(@Nullable final List<Result> results) {
                 favoriteMovies = results;
-//                for (Result item : results) {
-//                    if (item.getId() == DetailActivity.favoriteResults.getId()) {
-//                        heartButton.setLiked(true);
-//                    }
-//                }
             }
                 });
     }
-
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -327,7 +310,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         String sortOrder = preferences.getString(
                 this.getString(R.string.pref_sort_key),
                 this.getString(R.string.pref_sort_popular));
-//                mViewModel.getFavoriteItems(R.string.pref_sort_favorite));
 
         if (sortOrder.equals(this.getString(R.string.pref_sort_popular))) {
             Log.d(LOG_TAG, "Sort by most popular.");
