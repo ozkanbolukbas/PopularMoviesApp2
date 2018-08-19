@@ -66,11 +66,6 @@ public class Result {
     @SerializedName("original_language")
     @Expose
     private String originalLanguage;
-//
-//    @SerializedName("genre_ids")
-//    @Expose
-////    @TypeConverters(LongConverter.class)
-//    private List<Result> genreIds = null;
 
     @ColumnInfo
     @SerializedName("backdrop_path")
@@ -154,14 +149,6 @@ public class Result {
         this.originalTitle = originalTitle;
     }
 
-//    public List<Integer> getGenreIds() {
-//        return genreIds;
-//    }
-
-//    public void setGenreIds(List<Integer> genreIds) {
-//        this.genreIds = genreIds;
-//    }
-
     public String getBackdropPath() {
         return backdropPath;
     }
@@ -193,20 +180,6 @@ public class Result {
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
-
-//    @Ignore
-//    public Result(int id,
-//                  String originalTitle,
-//                  String posterPath,
-//                  String releaseDate,
-//                  double voteAverage,
-//                  String overview) {
-//        this.originalTitle = originalTitle;
-//        this.posterPath = posterPath;
-//        this.releaseDate = releaseDate;
-//        this.voteAverage = voteAverage;
-//        this.overview = overview;
-//    }
 
     public Result(@NonNull int id, String originalTitle, String posterPath, String releaseDate, double voteAverage, String overview) {
         this.id = id;

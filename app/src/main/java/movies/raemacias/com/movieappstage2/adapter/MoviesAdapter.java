@@ -71,6 +71,9 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieListV
     @Override
     public int getItemCount() {
         //We need the object model to be passed to this layer.
+        if (results == null) {
+            return 0;
+        }
         return results.size();
     }
 

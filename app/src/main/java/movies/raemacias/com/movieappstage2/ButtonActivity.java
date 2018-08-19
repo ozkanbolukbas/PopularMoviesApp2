@@ -40,6 +40,10 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
             Toolbar toolbar = findViewById(R.id.my_toolbar);
             setSupportActionBar(toolbar);
 
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            }
+
 
             likeButton.setOnAnimationEndListener(this);
             likeButton.setOnLikeListener(this);
@@ -52,6 +56,7 @@ public class ButtonActivity extends DetailActivity implements OnLikeListener,
         public boolean onCreateOptionsMenu(Menu menu) {
             // Inflate the menu; this adds items to the action bar if it is present.
             getMenuInflater().inflate(R.menu.menu, menu);
+
             return true;
         }
 

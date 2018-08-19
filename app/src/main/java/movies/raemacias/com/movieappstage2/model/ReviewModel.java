@@ -11,10 +11,6 @@ public class ReviewModel {
     @Expose
     private List<ReviewResult> mResults = null;
 
-//    public interface ReviewsAcquiredListener {
-//        void onReviewsAcquired(List<ReviewResult> reviews);
-//    }
-
     public List<ReviewResult> getReviewList() {
         return mResults;
 

@@ -63,7 +63,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private static final String FAVORITE_RESULTS = "favoriteResults";
     private SharedPreferences mSharedPreferences;
 
-    private FavoriteViewModel mViewModel;
+    public FavoriteViewModel mViewModel;
+    List<Result> favoriteMovies;
     LikeButton heartButton;
 
     @Override
@@ -77,22 +78,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        }
 
-        mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
-
-        mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
-            @Override
-            public void onChanged(@Nullable final List<Result> favoriteResults) {
-                for (Result item : favoriteResults) {
-                    if (item.getId() == DetailActivity.favoriteResults.getId()) {
-                        heartButton.setLiked(true);
-                    }
-                }
-            }
-                });
 
 
         initPopularMovieView();
@@ -147,6 +136,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         switch (item.getItemId()) {
             case R.id.menu_popular:
                 loadJSON();
@@ -158,8 +151,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
 //                when ready to implement - add favorites to onOptions here
             case R.id.menu_favorite:
-//                startActivity(new Intent(this, FavoriteActivity.class));
-                mViewModel.getFavoriteItems();
+                recyclerView.setAdapter(new MoviesAdapter(getApplicationContext(), favoriteMovies));
+                loadFavoriteMovies();
                 return true;
 
 
@@ -305,7 +298,23 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     }
 
 //    //for loading favorites from DB
-//    private void loadFavoriteItem() {
+    private void loadFavoriteMovies() {
+
+        mViewModel = ViewModelProviders.of(this).get(FavoriteViewModel.class);
+
+        mViewModel.getFavoriteItems().observe(this, new Observer<List<Result>>() {
+            @Override
+            public void onChanged(@Nullable final List<Result> results) {
+                favoriteMovies = results;
+//                for (Result item : results) {
+//                    if (item.getId() == DetailActivity.favoriteResults.getId()) {
+//                        heartButton.setLiked(true);
+//                    }
+//                }
+            }
+                });
+    }
+
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
@@ -328,7 +337,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             loadJSON1();
         } else if (sortOrder.equals(this.getString(R.string.pref_sort_favorite))) {
            Log.d(LOG_TAG, "Sort by favorites.");
-            mViewModel.getFavoriteItems();
+           loadFavoriteMovies();
         }
     }
     @Override
