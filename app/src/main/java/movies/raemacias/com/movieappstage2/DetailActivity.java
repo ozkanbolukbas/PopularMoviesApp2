@@ -6,16 +6,17 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.widget.Toolbar;
 
 import com.like.LikeButton;
 import com.like.OnLikeListener;
@@ -61,6 +62,10 @@ public class DetailActivity extends AppCompatActivity {
     LikeButton heartButton;
 
     private static final String FAVORITE_RESULTS = "favoriteResults";
+    private Parcelable recyclerPosition;
+    private GridLayoutManager mGridLayoutManager;
+    private static final String RECYCLER_POSITION = "RecyclerViewPosition";
+
 
 
     FavoriteDatabase db;
@@ -80,14 +85,6 @@ public class DetailActivity extends AppCompatActivity {
 
         db = FavoriteDatabase.getFavoriteDatabase(this);
         favoriteDatabaseDao = db.mFavoriteItemDao();
-
-
-        Toolbar toolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(toolbar);
-
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
 
         TextView textViewOriginalTitle = findViewById(R.id.original_title_tv);
         ImageView imageViewMovieListItem = findViewById(R.id.movie_poster_iv);
@@ -157,13 +154,11 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         db.mFavoriteItemDao().insertFavorite(getFavoriteItems);
-//                        Log.d(TAG, insertFavoriteItems.getId() + " has been added to your favorites.");
                     }
                 });
 
             }
 
-            //This is not correct - need to get the Like working first.
             @Override
             public void unLiked(LikeButton likeButton) {
 
@@ -187,6 +182,22 @@ public class DetailActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECYCLER_POSITION,
+                recyclerView.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey(RECYCLER_POSITION)) {
+            recyclerPosition = savedInstanceState.getParcelable(RECYCLER_POSITION);
+        }
+    }
+
 
 
     private void loadJSON() {
