@@ -13,6 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name="movies.raemacias.com.movieappstage2.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,8 @@
             android:name="movies.raemacias.com.movieappstage2.DetailActivity"
             android:label="Movies"
             android:parentActivityName="movies.raemacias.com.movieappstage2.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTop">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="movies.raemacias.com.movieappstage2.MainActivity" />
@@ -33,7 +35,6 @@
             android:name="movies.raemacias.com.movieappstage2.ButtonActivity"
             android:label="Like"
             android:parentActivityName="movies.raemacias.com.movieappstage2.MainActivity" />
-        <activity android:name="movies.raemacias.com.movieappstage2.FavoriteActivity" />
     </application>
 
 </manifest>
