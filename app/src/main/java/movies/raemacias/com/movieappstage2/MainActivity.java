@@ -13,18 +13,21 @@ import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 
@@ -67,6 +70,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     List<Result> favoriteMovies;
     LikeButton heartButton;
 
+    //For saving instance state:
+    public static int index = -1;
+    public static int top = -1;
+    LinearLayoutManager mLayoutManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +82,10 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
         recyclerView = findViewById(R.id.recyclerview);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        //Set Variables
+        mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(mLayoutManager);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,6 +111,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             recyclerPosition = savedInstanceState.getParcelable(RECYCLER_POSITION);
         }
     }
+
+
 
             private boolean isNetworkAvailable() {
                 ConnectivityManager connectivityManager
@@ -323,14 +337,34 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         }
     }
     @Override
-    public void onResume(){
-        super.onResume();
-        if (results.isEmpty()){
-            checkSortOrder();
-        } else {
+    public void onPause()
+    {
+        super.onPause();
+        //read current recyclerview position
+        index = mLayoutManager.findFirstVisibleItemPosition();
+        View v = recyclerView.getChildAt(0);
+        top = (v == null) ? 0 : (v.getTop() - recyclerView.getPaddingTop());
+    }
 
-            checkSortOrder();
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        //set recyclerview position
+        if(index != -1)
+        {
+            mLayoutManager.scrollToPositionWithOffset( index, top);
         }
+
+//    @Override
+//    public void onResume(){
+//        super.onResume();
+//        if (results.isEmpty()){
+//            checkSortOrder();
+//        } else {
+//
+//            checkSortOrder();
+//        }
 
     }
 }
