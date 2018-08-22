@@ -23,10 +23,11 @@
         </activity>
         <activity
             android:name="movies.raemacias.com.movieappstage2.DetailActivity"
-            android:label="Movies"
+            android:label="@string/title_activity_display_name"
             android:parentActivityName="movies.raemacias.com.movieappstage2.MainActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:launchMode="singleTop">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <!--android:launchMode="singleTop"-->
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="movies.raemacias.com.movieappstage2.MainActivity" />
