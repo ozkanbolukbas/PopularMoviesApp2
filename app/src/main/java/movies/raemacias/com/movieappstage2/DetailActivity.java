@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -70,8 +69,6 @@ public class DetailActivity extends AppCompatActivity {
     private GridLayoutManager mGridLayoutManager;
     private static final String RECYCLER_POSITION = "RecyclerViewPosition";
 
-
-
     FavoriteDatabase db;
     private FavoriteItemDao favoriteDatabaseDao;
 
@@ -93,8 +90,6 @@ public class DetailActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-
 
         db = FavoriteDatabase.getFavoriteDatabase(this);
         favoriteDatabaseDao = db.mFavoriteItemDao();
@@ -189,11 +184,7 @@ public class DetailActivity extends AppCompatActivity {
             }
 
             public static final String TAG = "Detail Activity";
-
-
         });
-
-
     }
 
     private void getSupportActionBar(Toolbar toolbar) {
@@ -311,6 +302,5 @@ public class DetailActivity extends AppCompatActivity {
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-
     }
 }
